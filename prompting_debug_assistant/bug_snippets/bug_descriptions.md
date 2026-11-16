@@ -1,5 +1,3 @@
-# Bug Descriptions
-
 ## Bug 1 – bug1.py
 **Intended Behavior**: Return the sum of all prices in a list.
 **Issue Type**: Syntax error.
@@ -18,9 +16,9 @@
 ## Bug 4 – bug4.c
 **Intended Behavior**: Return the sum of all elements in an integer array.
 **Issue Type**: Off-by-one error.
-**Notes**: The loop uses `i <= size`, so it reads one element past the end of the array (undefined behavior).
+**Notes**: The loop uses `i <= size`, so it reads one element past the end of the array.
 
 ## Bug 5 – bug5.js
 **Intended Behavior**: Add an item price to the cart total and check for free shipping.
 **Issue Type**: Misuse of data types.
-**Notes**: `total` is a string, so `"50" + 25` gives `"5025"` (string concatenation) instead of `75`.
+**Notes**: `total` is a string, so `"50" + 25` gives `"5025"` instead of `75`.
