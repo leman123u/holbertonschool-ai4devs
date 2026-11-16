@@ -6,9 +6,11 @@ def calculate_total(prices):
 
 
 def main():
-    items = [10, 20, 30]
-    print("Total:", calculate_total(items))
-    print("Empty:", calculate_total([]))
+    assert calculate_total([10, 20, 30]) == 60
+    assert calculate_total([]) == 0
+    assert calculate_total([5]) == 5
+    print("Total:", calculate_total([10, 20, 30]))
+    print("All bug1 tests passed")
 
 
 main()

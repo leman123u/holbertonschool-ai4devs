@@ -1,3 +1,5 @@
+const assert = require("assert");
+
 function average(numbers) {
   if (numbers.length === 0) {
     return 0;
@@ -9,6 +11,8 @@ function average(numbers) {
   return sum / numbers.length;
 }
 
-const scores = [80, 90, 100];
-console.log("Average:", average(scores));
-console.log("Empty:", average([]));
+assert.strictEqual(average([80, 90, 100]), 90);
+assert.strictEqual(average([]), 0);
+assert.strictEqual(average([7]), 7);
+console.log("Average:", average([80, 90, 100]));
+console.log("All bug2 tests passed");
