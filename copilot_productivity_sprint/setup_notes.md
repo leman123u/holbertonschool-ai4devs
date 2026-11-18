@@ -1,7 +1,3 @@
-# Setup Notes
-
-## Project
-Copilot Productivity Sprint
 
 ## Development Environment
 - Operating System: Windows
