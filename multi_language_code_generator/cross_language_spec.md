@@ -53,27 +53,6 @@ The implementation must correctly handle the following situations:
 - **No Errors:** Return an error rate of 0%.
 - **All Errors:** Return an error rate of 100% if every valid request has an error status code.
 
-## 6. Test Cases
-
-| Test File | Expected Result |
-|---|---|
-| `log_small.txt` | 100 requests, 20 errors |
-| `log_empty.txt` | 0 requests, 0 errors |
-
-### Expected Results
-
-**Test Case 1: log_small.txt**
-
-- Total Requests: 100
-- Error Requests: 20
-- Unique Visitors: Calculated from distinct valid IP addresses
-- Error Rate: 20%
-
-**Test Case 2: log_empty.txt**
-
-- Total Requests: 0
-- Unique Visitors: 0
-- Error Rate: 0%
 
 ## 7. Cross-Language Requirements
 
