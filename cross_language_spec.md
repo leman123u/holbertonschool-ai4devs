@@ -1,0 +1,1 @@
+# Cross-Language Specification - Log Analyzer  ## Algorithm Parse Apache logs and compute: - Total requests - Unique visitors - Error rate  ## Inputs - Sample log files  ## Outputs - JSON with stats  ## Edge Cases - Empty file - Malformed entry  ## Test Cases - log_small.txt → 100 requests, 20 errors - log_empty.txt → 0 requests
