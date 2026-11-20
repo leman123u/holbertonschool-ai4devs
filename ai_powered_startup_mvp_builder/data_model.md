@@ -1,9 +1,9 @@
 
-# Data Model - Feedback Collection App
+# Data Model - AI-Powered Personal Knowledge Organizer
 
 ## 1. User Entity
 
-Stores information about users who submit feedback.
+Stores information about application users.
 
 | Field | Data Type | Description |
 |---|---|---|
@@ -12,42 +12,55 @@ Stores information about users who submit feedback.
 | email | String | User's email address |
 | created_at | DateTime | Account creation date |
 
-## 2. Feedback Entity
+## 2. Note Entity
 
-Stores feedback submitted by users.
-
-| Field | Data Type | Description |
-|---|---|---|
-| id | Integer | Unique feedback identifier |
-| user_id | Integer | ID of the user who submitted feedback |
-| title | String | Feedback title |
-| description | Text | Detailed feedback message |
-| category | String | Feedback category |
-| status | String | Feedback status (Pending, Reviewed, Completed) |
-| created_at | DateTime | Feedback submission date |
-
-## 3. Message Entity
-
-Stores chat messages between users and team members.
+Stores personal notes created by users.
 
 | Field | Data Type | Description |
 |---|---|---|
-| id | Integer | Unique message identifier |
-| user_id | Integer | ID of the sender |
-| content | Text | Message content |
-| created_at | DateTime | Message creation date |
+| id | Integer | Unique note identifier |
+| user_id | Integer | ID of the note owner |
+| title | String | Note title |
+| content | Text | Note content |
+| summary | Text | AI-generated summary |
+| is_favorite | Boolean | Favorite status |
+| created_at | DateTime | Note creation date |
+| updated_at | DateTime | Last update date |
 
-## 4. Relationships
+## 3. Tag Entity
 
-- One user can submit multiple feedback entries.
-- Each feedback entry belongs to one user.
-- One user can send multiple chat messages.
-- Each message belongs to one user.
+Stores tags used to organize notes.
 
-## 5. Constraints
+| Field | Data Type | Description |
+|---|---|---|
+| id | Integer | Unique tag identifier |
+| name | String | Tag name |
+| created_at | DateTime | Tag creation date |
+
+## 4. NoteTag Entity
+
+Connects notes with tags.
+
+| Field | Data Type | Description |
+|---|---|---|
+| id | Integer | Unique relationship identifier |
+| note_id | Integer | Related note ID |
+| tag_id | Integer | Related tag ID |
+
+## 5. Relationships
+
+- One user can create multiple notes.
+- Each note belongs to one user.
+- One note can have multiple tags.
+- One tag can be assigned to multiple notes.
+- NoteTag connects notes and tags through a many-to-many relationship.
+
+## 6. Constraints
 
 - Every entity has a unique ID.
 - User email addresses must be unique.
-- Feedback must have a title and description.
-- Feedback status must be Pending, Reviewed, or Completed.
-- Every feedback entry must be associated with a user.
+- Every note must have a title and content.
+- Every note must belong to a user.
+- Tag names should not be empty.
+- Each note-tag relationship must reference an existing note and tag.
+- Favorite status is stored as a Boolean value.
