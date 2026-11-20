@@ -1,30 +1,29 @@
+MVP Concept – AI-Powered Personal Knowledge Organizer
+Problem Statement
+People collect useful information from articles, websites, books, videos, and personal notes, but often struggle to organize and retrieve it later. Important information gets scattered across different apps and documents, making it difficult to find relevant knowledge when needed.
 
-# MVP Concept - Feedback Collection App
+The proposed MVP provides a centralized workspace where users can save, organize, search, and summarize their information.
 
-## Problem Statement
+Target Users
+Students managing study materials and research.
+Professionals collecting information for work.
+Lifelong learners interested in self-education.
+Researchers organizing notes and references.
+Core Features
+Create and Save Notes: Users can create, edit, and delete notes containing text and useful information.
 
-Teams and businesses often struggle to collect, organize, and manage user feedback efficiently. Collecting feedback through emails and messages can be time-consuming and difficult to track. Our application provides a simple platform where users can submit feedback and teams can manage it in one place.
+Organize with Tags: Users can assign tags and categories to notes to keep related information together.
 
-## Target Users
+Search Notes: Users can search their saved notes by title, content, or tags.
 
-- Startup founders
-- UX researchers
-- Product managers
-- Small business owners
-- Customer support teams
+AI-Powered Summarization: Users can generate short summaries of longer notes to identify their main ideas quickly.
 
-## Core Features
+Favorites: Users can mark important notes as favorites for quick access.
 
-- Feedback submission form: Users can submit feedback with a title, description, and category.
-- Feedback dashboard: Display all submitted feedback in an organized list.
-- Search and filter: Allow users to search and filter feedback by category or status.
-- CSV export: Allow users to download feedback data as a CSV file.
-- Chat section: Allow users to communicate and discuss submitted feedback.
-
-## Constraints
-
-- No user authentication in the MVP version.
-- Limited to 100 feedback entries.
-- Simple and responsive user interface.
-- No real-time notifications.
-- Basic search and filtering functionality.
+Constraints
+The MVP will focus on individual users.
+Notes will primarily support text content.
+No real-time collaboration or sharing functionality.
+AI summarization will be limited to individual notes.
+No integrations with external note-taking or productivity applications.
+Advanced features such as voice transcription and file uploads are excluded from the initial version.
