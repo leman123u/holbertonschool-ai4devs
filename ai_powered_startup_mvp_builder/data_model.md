@@ -1,89 +1,172 @@
+# Data Model – Real-Time Job Board with Chat-Based Assistance
 
-# Data Model
+## 1. Overview
 
-## Overview
+The application uses a relational database to store users, job listings, applications, conversations, and messages.
 
-The Feedback Collection App uses a simple data model to store feedback submissions and support CSV exports.
+The data model consists of five main entities:
 
-The data model contains three entities: Feedback, FeedbackForm and CSVExport.
+1. User
+2. Job
+3. Application
+4. Conversation
+5. Message
 
-## 1. Feedback Entity
+The database supports user registration, job posting, job applications, assistance requests, and real-time communication.
 
-Stores feedback submitted by users.
+## 2. Entities and Attributes
 
-| Field | Type | Description |
+### Entity 1 – User
+
+Stores information about registered users.
+
+| Attribute | Data Type | Description |
 |---|---|---|
-| id | Integer | Primary key |
-| form_id | Integer | Foreign key referencing FeedbackForm |
-| message | Text | Feedback content |
-| created_at | Timestamp | Submission date and time |
+| id | UUID | Primary key |
+| name | VARCHAR(100) | User's full name |
+| email | VARCHAR(255) | User's unique email address |
+| password_hash | VARCHAR(255) | Hashed password |
+| role | VARCHAR(20) | User role (job seeker, employer, admin) |
+| created_at | TIMESTAMP | Account creation date |
 
-## 2. FeedbackForm Entity
+### Entity 2 – Job
 
-Represents the feedback submission form.
+Stores job listings created by employers.
 
-| Field | Type | Description |
+| Attribute | Data Type | Description |
 |---|---|---|
-| id | Integer | Primary key |
-| title | String | Form title |
-| description | Text | Form description |
-| created_at | Timestamp | Form creation date |
+| id | UUID | Primary key |
+| employer_id | UUID | Foreign key referencing User |
+| title | VARCHAR(150) | Job title |
+| company | VARCHAR(150) | Company name |
+| description | TEXT | Job description |
+| location | VARCHAR(150) | Job location |
+| salary | VARCHAR(100) | Salary information |
+| employment_type | VARCHAR(50) | Full-time, part-time, or remote |
+| status | VARCHAR(20) | Job status |
+| created_at | TIMESTAMP | Job creation date |
 
-## 3. CSVExport Entity
+### Entity 3 – Application
 
-Stores information about CSV export operations.
+Stores applications submitted by job seekers.
 
-| Field | Type | Description |
+| Attribute | Data Type | Description |
 |---|---|---|
-| id | Integer | Primary key |
-| file_name | String | Exported CSV file name |
-| exported_at | Timestamp | Export date and time |
-| record_count | Integer | Number of exported feedback entries |
+| id | UUID | Primary key |
+| job_id | UUID | Foreign key referencing Job |
+| applicant_id | UUID | Foreign key referencing User |
+| cover_letter | TEXT | Application message |
+| resume_url | VARCHAR(255) | Resume file URL |
+| status | VARCHAR(30) | Pending, accepted, or rejected |
+| created_at | TIMESTAMP | Application submission date |
 
-## Entity Relationships
+### Entity 4 – Conversation
 
-- One FeedbackForm can have many Feedback entries.
-- Each Feedback entry belongs to one FeedbackForm.
-- CSVExport records store information about exported feedback data.
-- The application supports a maximum of 100 feedback entries.
+Stores conversations between users.
 
-## Database Relationships Diagram
+| Attribute | Data Type | Description |
+|---|---|---|
+| id | UUID | Primary key |
+| user_id | UUID | Foreign key referencing User |
+| title | VARCHAR(150) | Conversation title |
+| created_at | TIMESTAMP | Conversation creation date |
+| updated_at | TIMESTAMP | Last update date |
 
-```text
-+----------------------+
-|     FeedbackForm     |
-+----------------------+
-| id (PK)              |
-| title                |
-| description          |
-| created_at           |
-+----------------------+
-           |
-           | 1
-           |
-           | *
-+----------------------+
-|       Feedback       |
-+----------------------+
-| id (PK)              |
-| form_id (FK)         |
-| message              |
-| created_at           |
-+----------------------+
+### Entity 5 – Message
 
-+----------------------+
-|      CSVExport       |
-+----------------------+
-| id (PK)              |
-| file_name            |
-| exported_at          |
-| record_count         |
-+----------------------+
+Stores messages exchanged in conversations.
+
+| Attribute | Data Type | Description |
+|---|---|---|
+| id | UUID | Primary key |
+| conversation_id | UUID | Foreign key referencing Conversation |
+| sender_id | UUID | Foreign key referencing User |
+| content | TEXT | Message content |
+| created_at | TIMESTAMP | Message timestamp |
+| is_read | BOOLEAN | Message read status |
+
+## 3. Entity Relationships
+
+- **User → Job:** One user (employer) can create multiple job listings. Each job belongs to one employer (one-to-many).
+- **User → Application:** One user can submit multiple job applications. Each application belongs to one applicant (one-to-many).
+- **Job → Application:** One job can receive multiple applications. Each application belongs to one job (one-to-many).
+- **User → Conversation:** One user can have multiple conversations (one-to-many).
+- **Conversation → Message:** One conversation can contain multiple messages (one-to-many).
+- **User → Message:** One user can send multiple messages (one-to-many).
+
+## 4. Relationship Diagram
+
+```mermaid
+erDiagram
+    USER ||--o{ JOB : creates
+    USER ||--o{ APPLICATION : submits
+    JOB ||--o{ APPLICATION : receives
+    USER ||--o{ CONVERSATION : owns
+    CONVERSATION ||--o{ MESSAGE : contains
+    USER ||--o{ MESSAGE : sends
+
+    USER {
+        UUID id PK
+        VARCHAR name
+        VARCHAR email UK
+        VARCHAR password_hash
+        VARCHAR role
+        TIMESTAMP created_at
+    }
+
+    JOB {
+        UUID id PK
+        UUID employer_id FK
+        VARCHAR title
+        VARCHAR company
+        TEXT description
+        VARCHAR location
+        VARCHAR salary
+        VARCHAR employment_type
+        VARCHAR status
+        TIMESTAMP created_at
+    }
+
+    APPLICATION {
+        UUID id PK
+        UUID job_id FK
+        UUID applicant_id FK
+        TEXT cover_letter
+        VARCHAR resume_url
+        VARCHAR status
+        TIMESTAMP created_at
+    }
+
+    CONVERSATION {
+        UUID id PK
+        UUID user_id FK
+        VARCHAR title
+        TIMESTAMP created_at
+        TIMESTAMP updated_at
+    }
+
+    MESSAGE {
+        UUID id PK
+        UUID conversation_id FK
+        UUID sender_id FK
+        TEXT content
+        TIMESTAMP created_at
+        BOOLEAN is_read
+    }
 ```
 
-## Constraints
+## 5. Data Integrity Rules
 
-- Each feedback entry must have a unique ID.
-- Feedback must be associated with a feedback form.
-- A maximum of 100 feedback entries can be stored.
-- CSV exports must contain the collected feedback data.
+- Each user must have a unique email address.
+- Every job listing must belong to an existing employer.
+- Every application must reference an existing job and applicant.
+- A user cannot submit multiple applications for the same job.
+- Every conversation must belong to an existing user.
+- Every message must belong to an existing conversation.
+- Every message sender must reference an existing user.
+- Required fields cannot contain NULL values.
+- User passwords must be stored as secure hashes.
+- Deleting a job should also handle its related applications according to the database deletion policy.
+- Deleting a conversation should also handle its associated messages.
+- Timestamps must record the creation and update dates of records.
+
