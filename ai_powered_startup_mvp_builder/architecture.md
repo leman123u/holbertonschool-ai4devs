@@ -3,75 +3,76 @@
 
 ## Overview
 
-The AI-Powered Startup MVP Builder is a web-based application that helps users transform startup ideas into structured MVP plans using artificial intelligence.
+The Feedback Collection App is a simple web application that allows users to submit feedback and enables product teams to review, search and export collected feedback.
 
-## High-Level Architecture
+## High-Level System Diagram
 
 ```text
 +----------------------+
-|       User           |
+|        User          |
 +----------------------+
            |
            v
 +----------------------+
-|    Frontend UI       |
-|  (Web Application)   |
+|     Feedback Form    |
+|     (Frontend UI)    |
 +----------------------+
            |
            v
 +----------------------+
-|     Backend API      |
+|      Backend API     |
+|   Input Validation   |
 +----------------------+
-           |
-     +-----+------+
-     |            |
-     v            v
-+-----------+  +----------------+
-| Database  |  |   AI Service   |
-|           |  |                |
-| User Data |  | Idea Analysis  |
-| Projects  |  | MVP Generation |
-| MVP Plans |  | Feature Ideas  |
-+-----------+  +----------------+
-     |            |
-     +-----+------+
            |
            v
 +----------------------+
-| Generated MVP Plan   |
-| Stories, Architecture|
-| and Data Model       |
+|      Database        |
+|  Maximum 100 Entries |
 +----------------------+
-
+           |
+           v
++----------------------+
+|   Feedback Dashboard |
+|  View and Search     |
++----------------------+
+           |
+           v
++----------------------+
+|     CSV Export       |
++----------------------+
 ```
 
 ## Main Components
 
 ### 1. Frontend
-Provides the user interface for registration, login, submitting startup ideas, viewing and editing generated MVP plans.
+Provides a simple interface for submitting feedback and viewing the feedback dashboard.
 
 ### 2. Backend API
-Handles business logic, user requests, authentication, project management and communication with the AI service.
+Receives feedback submissions, validates input and handles requests from the dashboard.
 
-### 3. AI Service
-Analyzes startup ideas and generates MVP plans, target users, core features and technical recommendations.
+### 3. Database
+Stores feedback entries. The MVP supports a maximum of 100 feedback records.
 
-### 4. Database
-Stores user accounts, startup projects, generated plans and related information.
+### 4. Feedback Dashboard
+Displays submitted feedback and allows product managers to search for specific entries.
+
+### 5. CSV Export
+Allows product managers to download collected feedback in CSV format.
 
 ## Data Flow
 
-1. The user submits a startup idea through the frontend.
-2. The frontend sends the request to the backend API.
-3. The backend validates the input.
-4. The backend sends the startup idea to the AI service.
-5. The AI service generates an MVP plan.
-6. The backend saves the generated information in the database.
-7. The frontend displays the generated MVP plan to the user.
+1. A user opens the feedback form.
+2. The user submits feedback.
+3. The frontend sends the feedback to the backend API.
+4. The backend validates the submitted information.
+5. The feedback is stored in the database if the 100-entry limit has not been reached.
+6. Product managers view and search feedback through the dashboard.
+7. Feedback can be exported as a CSV file.
 
-## Security and Constraints
+## Constraints
 
-- User authentication is required to access saved projects.
-- API requests must be validated.
-- User data must be stored securely.
-- AI-generated content should be reviewed by users before implementation.
+- No user authentication is required.
+- The database is limited to 100 feedback entries.
+- The interface must remain simple and user-friendly.
+- Only essential feedback collection features are included.
+- Advanced analytics and complex reporting are excluded.

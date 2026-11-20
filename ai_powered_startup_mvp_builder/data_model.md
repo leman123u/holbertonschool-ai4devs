@@ -3,95 +3,87 @@
 
 ## Overview
 
-The application uses a relational database to store users, startup projects and AI-generated MVP plans.
+The Feedback Collection App uses a simple data model to store feedback submissions and support CSV exports.
 
-The data model contains three main entities: User, Project and MVPPlan.
+The data model contains three entities: Feedback, FeedbackForm and CSVExport.
 
-## 1. User Entity
+## 1. Feedback Entity
 
-Stores information about registered users.
-
-| Field | Type | Description |
-|---|---|---|
-| id | UUID | Primary key |
-| name | String | User's full name |
-| email | String | Unique email address |
-| password_hash | String | Encrypted password hash |
-| created_at | Timestamp | Account creation date |
-
-## 2. Project Entity
-
-Stores startup ideas submitted by users.
+Stores feedback submitted by users.
 
 | Field | Type | Description |
 |---|---|---|
-| id | UUID | Primary key |
-| user_id | UUID | Foreign key referencing User |
-| title | String | Startup project title |
-| description | Text | Startup idea description |
-| target_audience | Text | Intended users |
-| created_at | Timestamp | Project creation date |
+| id | Integer | Primary key |
+| form_id | Integer | Foreign key referencing FeedbackForm |
+| message | Text | Feedback content |
+| created_at | Timestamp | Submission date and time |
 
-## 3. MVPPlan Entity
+## 2. FeedbackForm Entity
 
-Stores AI-generated MVP plans.
+Represents the feedback submission form.
 
 | Field | Type | Description |
 |---|---|---|
-| id | UUID | Primary key |
-| project_id | UUID | Foreign key referencing Project |
-| core_features | JSON | List of essential features |
-| user_stories | Text | Generated user stories |
-| architecture | Text | System architecture description |
-| status | String | Current plan status |
-| created_at | Timestamp | Plan generation date |
+| id | Integer | Primary key |
+| title | String | Form title |
+| description | Text | Form description |
+| created_at | Timestamp | Form creation date |
+
+## 3. CSVExport Entity
+
+Stores information about CSV export operations.
+
+| Field | Type | Description |
+|---|---|---|
+| id | Integer | Primary key |
+| file_name | String | Exported CSV file name |
+| exported_at | Timestamp | Export date and time |
+| record_count | Integer | Number of exported feedback entries |
 
 ## Entity Relationships
 
-- One User can have many Projects.
-- Each Project belongs to one User.
-- One Project can have many MVPPlans.
-- Each MVPPlan belongs to one Project.
+- One FeedbackForm can have many Feedback entries.
+- Each Feedback entry belongs to one FeedbackForm.
+- CSVExport records store information about exported feedback data.
+- The application supports a maximum of 100 feedback entries.
 
 ## Database Relationships Diagram
 
 ```text
-+------------------+
-|       User       |
-+------------------+
-| id (PK)          |
-| name             |
-| email            |
-| password_hash    |
-| created_at       |
-+------------------+
-         |
-         | 1
-         |
-         | *
-+------------------+
-|     Project      |
-+------------------+
-| id (PK)          |
-| user_id (FK)     |
-| title            |
-| description      |
-| target_audience  |
-| created_at       |
-+------------------+
-         |
-         | 1
-         |
-         | *
-+------------------+
-|     MVPPlan      |
-+------------------+
-| id (PK)          |
-| project_id (FK)  |
-| core_features    |
-| user_stories     |
-| architecture     |
-| status           |
-| created_at       |
-+------------------+
++----------------------+
+|     FeedbackForm     |
++----------------------+
+| id (PK)              |
+| title                |
+| description          |
+| created_at           |
++----------------------+
+           |
+           | 1
+           |
+           | *
++----------------------+
+|       Feedback       |
++----------------------+
+| id (PK)              |
+| form_id (FK)         |
+| message              |
+| created_at           |
++----------------------+
+
++----------------------+
+|      CSVExport       |
++----------------------+
+| id (PK)              |
+| file_name            |
+| exported_at          |
+| record_count         |
++----------------------+
 ```
+
+## Constraints
+
+- Each feedback entry must have a unique ID.
+- Feedback must be associated with a feedback form.
+- A maximum of 100 feedback entries can be stored.
+- CSV exports must contain the collected feedback data.
