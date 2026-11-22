@@ -1,30 +1,29 @@
+
 public class Bug3Fixed {
-    private double balance;
 
-    public Bug3Fixed(double initialBalance) {
-        this.balance = initialBalance;
-    }
-
-    public boolean withdraw(double amount) {
-        if (amount > 0 && amount <= balance) {
-            balance -= amount;
-            return true;
+    public static double calculateAverage(int[] grades) {
+        if (grades == null || grades.length == 0) {
+            return 0;
         }
 
-        return false;
-    }
+        int sum = 0;
 
-    public double getBalance() {
-        return balance;
+        for (int grade : grades) {
+            sum += grade;
+        }
+
+        double average = (double) sum / grades.length;
+
+        return average;
     }
 
     public static void main(String[] args) {
-        Bug3Fixed account = new Bug3Fixed(500);
+        int[] grades1 = {75, 80, 90};
+        int[] grades2 = {10, 20};
+        int[] grades3 = {};
 
-        System.out.println(account.withdraw(-100)); // false
-        System.out.println("Balance: " + account.getBalance()); // 500.0
-
-        System.out.println(account.withdraw(100)); // true
-        System.out.println("Balance: " + account.getBalance()); // 400.0
+        System.out.println(calculateAverage(grades1));
+        System.out.println(calculateAverage(grades2));
+        System.out.println(calculateAverage(grades3));
     }
 }

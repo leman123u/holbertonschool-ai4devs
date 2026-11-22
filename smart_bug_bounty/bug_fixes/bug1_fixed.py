@@ -1,12 +1,18 @@
-def remove_duplicates(items):
-    result = []
 
-    for item in items:
-        if item not in result:
-            result.append(item)
+def get_last_items(items, n):
+    if n <= 0:
+        return []
 
-    return result
+    if n >= len(items):
+        return items
+
+    start = len(items) - n
+
+    return items[start:]
 
 
-numbers = [1, 2, 2, 3, 3, 3, 4, 4]
-print(remove_duplicates(numbers))
+numbers = [10, 20, 30, 40, 50]
+
+print(get_last_items(numbers, 3))
+print(get_last_items(numbers, 1))
+print(get_last_items(numbers, 0))

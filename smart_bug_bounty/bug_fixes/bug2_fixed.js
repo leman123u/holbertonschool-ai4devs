@@ -1,21 +1,26 @@
-function calculate_cart_total(cart) {
-    let total = 0;
 
-    for (let i = 0; i < cart.length; i++) {
-        const item = cart[i];
+function calculateOrderTotal(price, quantity, discount) {
+    if (price < 0 || quantity < 0) {
+        return "Invalid order";
+    }
 
-        if (item.quantity > 0) {
-            total += item.price * item.quantity;
-        }
+    let total = price * quantity;
+
+    if (discount === true) {
+        total = total - 10;
+    }
+
+    if (total < 0) {
+        total = 0;
     }
 
     return total;
 }
 
-const cart = [
-    { name: "Book", price: 15, quantity: 2 },
-    { name: "Pen", price: 3, quantity: 5 },
-    { name: "Bag", price: 30, quantity: 1 }
-];
+const order1 = calculateOrderTotal(20, 2, false);
+const order2 = calculateOrderTotal(15, 3, true);
+const order3 = calculateOrderTotal(5, 1, true);
 
-console.log("Total:", calculate_cart_total(cart));
+console.log("Order 1:", order1);
+console.log("Order 2:", order2);
+console.log("Order 3:", order3);

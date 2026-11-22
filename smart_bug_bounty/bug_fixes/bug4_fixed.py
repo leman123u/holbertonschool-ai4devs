@@ -1,25 +1,31 @@
-import string
 
+#include <iostream>
+using namespace std;
 
-def count_word_occurrences(filename, target_word):
-    word_count = 0
+int findMaximum(int numbers[], int size) {
+    if (size <= 0) {
+        return -1;
+    }
 
-    try:
-        with open(filename, "r", encoding="utf-8") as file:
-            for line in file:
-                words = line.split()
+    int maximum = numbers[0];
 
-                for word in words:
-                    cleaned_word = word.strip(string.punctuation)
+    for (int i = 1; i < size; i++) {
+        if (numbers[i] > maximum) {
+            maximum = numbers[i];
+        }
+    }
 
-                    if cleaned_word.lower() == target_word.lower():
-                        word_count += 1
+    return maximum;
+}
 
-        return word_count
+int main() {
+    int numbers1[] = {12, 45, 23, 67, 34};
+    int numbers2[] = {-5, -2, -10};
+    int numbers3[] = {100};
 
-    except FileNotFoundError:
-        print("File not found.")
-        return 0
+    cout << findMaximum(numbers1, 5) << endl;
+    cout << findMaximum(numbers2, 3) << endl;
+    cout << findMaximum(numbers3, 1) << endl;
 
-
-print(count_word_occurrences("sample.txt", "python"))
+    return 0;
+}

@@ -1,42 +1,47 @@
-Fix Validation
-bug1_fixed.py – Duplicate Removal
-Original Issue: The function removed previously added elements when duplicates were encountered multiple times.
-Fix Applied: Removed the incorrect else branch. Elements are now added only if they are not already present.
-Test Cases:
-Input: [1, 2, 2, 3, 3, 3, 4, 4] → Expected: [1, 2, 3, 4]
-Input: [] → Expected: []
-Input: [5, 5, 5] → Expected: [5]
-Input: [1, 2, 1, 3] → Expected: [1, 2, 3]
-Test Results: PASS – All 4 test cases passed.
-bug2_fixed.js – Shopping Cart Total
-Original Issue: The function added each item's price only once instead of multiplying it by its quantity.
-Fix Applied: Multiplied item.price by item.quantity when calculating the total.
-Test Cases:
-Book (15 × 2), Pen (3 × 5), Bag (30 × 1) → Expected: 75
-Empty cart → Expected: 0
-Item with quantity 0 → Expected: 0
-Item with price 4 and quantity 3 → Expected: 12
-Test Results: PASS – All 4 test cases passed.
-bug3_fixed.java – Bank Account Withdrawal
-Original Issue: Negative withdrawal amounts were accepted, incorrectly increasing the account balance.
-Fix Applied: Added validation requiring the withdrawal amount to be greater than zero and not exceed the available balance.
-Test Cases:
-Initial balance 500, withdraw -100 → Expected: false, balance 500
-Initial balance 500, withdraw 100 → Expected: true, balance 400
-Initial balance 400, withdraw 600 → Expected: false, balance 400
-Initial balance 400, withdraw 0 → Expected: false, balance 400
-Test Results: PASS – All 4 test cases passed. Java compilation and execution were successful.
-bug4_fixed.py – Word Occurrence Counting
-Original Issue: Words followed by punctuation were not counted because punctuation remained attached during comparison.
-Fix Applied: Imported Python's string module and used strip(string.punctuation) to remove surrounding punctuation before comparing words.
-Test Cases:
-Text: Python, is useful. I like PYTHON! → Expected: 2
-Text: PYTHON; python. → Expected: 2
-Text: Java is useful. → Expected: 0
-Test Results: PASS – All 3 test cases passed. File reading, case-insensitive comparison, and punctuation handling worked as expected.
-Overall Validation Summary
-Total Test Cases: 15
-Passed: 15
-Failed: 0
-Overall Result: PASS
-All four corrected files were tested using multiple test cases. The observed outputs matched the expected results.
+
+# Fix Validation Report
+
+## bug1_fixed.py
+- **Original Issue:** Off-by-one error in list slicing.
+- **Fix Applied:** Changed the slicing operation to items[start:].
+- **Test Case 1:** Get the last 3 items. Expected: [30, 40, 50].
+- **Test Case 2:** Get the last 1 item. Expected: [50].
+- **Test Case 3:** Request 0 items. Expected: [].
+- **Test Results:** All 3 test cases are expected to pass.
+
+## bug2_fixed.js
+- **Original Issue:** Assignment operator used instead of comparison.
+- **Fix Applied:** Replaced = with ===.
+- **Test Case 1:** Calculate order without discount. Expected: 40.
+- **Test Case 2:** Calculate order with discount. Expected: 35.
+- **Test Case 3:** Apply discount to a small order. Expected: 0.
+- **Test Results:** All 3 test cases are expected to pass.
+
+## bug3_fixed.java
+- **Original Issue:** Integer division caused inaccurate average calculation.
+- **Fix Applied:** Used double division to preserve decimal values.
+- **Test Case 1:** Calculate average of 75, 80 and 90. Expected: 81.666666...
+- **Test Case 2:** Calculate average of 10 and 20. Expected: 15.0.
+- **Test Case 3:** Empty array. Expected: 0.0.
+- **Test Results:** All 3 test cases are expected to pass.
+
+## bug4_fixed.cpp
+- **Original Issue:** Array index out of bounds.
+- **Fix Applied:** Changed loop condition from i <= size to i < size.
+- **Test Case 1:** Find maximum in {12, 45, 23, 67, 34}. Expected: 67.
+- **Test Case 2:** Find maximum in {-5, -2, -10}. Expected: -2.
+- **Test Case 3:** Single element array {100}. Expected: 100.
+- **Test Results:** All 3 test cases are expected to pass.
+
+## bug5_fixed.py
+- **Original Issue:** Incorrect password validation logic.
+- **Fix Applied:** Return False when password requirements are not satisfied.
+- **Test Case 1:** "hello123". Expected: False.
+- **Test Case 2:** "HELLO123". Expected: True.
+- **Test Case 3:** "HelloWorld". Expected: False.
+- **Test Case 4:** "Hello123". Expected: True.
+
+## Conclusion
+4 buggy code snippets were corrected.
+Test cases were prepared to verify the fixes.
+All fixes should be executed and verified before final submission.
