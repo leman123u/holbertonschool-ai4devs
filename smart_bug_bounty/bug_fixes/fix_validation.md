@@ -25,12 +25,12 @@
 - **Test Case 3:** Empty array. Expected: 0.0. Actual: 0.0. Status: PASS.
 - **Test Results:** 3/3 test cases passed.
 
-## bug4_fixed.cpp
-- **Original Issue:** Array index out of bounds.
-- **Fix Applied:** Changed loop condition from i <= size to i < size.
-- **Test Case 1:** Find maximum in {12, 45, 23, 67, 34}. Expected: 67. Actual: 67. Status: PASS.
-- **Test Case 2:** Find maximum in {-5, -2, -10}. Expected: -2. Actual: -2. Status: PASS.
-- **Test Case 3:** Single element array {100}. Expected: 100. Actual: 100. Status: PASS.
+## bug4_fixed.py
+- **Original Issue:** List index out of range. The loop used range(1, len(numbers) + 1), which accessed numbers[len(numbers)] and raised an IndexError.
+- **Fix Applied:** Changed the loop to range(1, len(numbers)) so it only visits valid indices.
+- **Test Case 1:** Find maximum in [12, 45, 23, 67, 34]. Expected: 67. Actual: 67. Status: PASS.
+- **Test Case 2:** Find maximum in [-5, -2, -10]. Expected: -2. Actual: -2. Status: PASS.
+- **Test Case 3:** Single element list [100]. Expected: 100. Actual: 100. Status: PASS.
 - **Test Results:** 3/3 test cases passed.
 
 ## Conclusion
